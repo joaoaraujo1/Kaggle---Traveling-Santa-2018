@@ -21,7 +21,7 @@ maxPerms = false;      % Explore all possible node and chunk permutations. Extre
 %Load cities and initial Path
 Data = csvread('cities.csv',1);
 %Load current best path ("Path_test" array)
-load('Path_opt_conc')
+load('Path_opt_LKH')
 %Get list of primes ("PrimeSet" array)
 load('Primes')
 %Get our city permutations to test ("Comparisons" matrix)
@@ -36,8 +36,8 @@ for i = 1:length(Path_test)-1
     cost = dist(Data(Path_test(i)+1,2:3),Data(Path_test(i+1)+1,2:3)');
     baseCostPath(i) = cost;
     if(rem(i,10) == 0 && ~ismembc(Path_test(i),PrimeSet))
-        cost = cost + .1*cost;
         penalties(i) = .1*cost;
+        cost = cost + .1*cost;
     else
         penalties(i) = 0;
     end
@@ -57,7 +57,7 @@ indexHist = 0;
 
 tic
 % Iterate across the entire permutation set
-for index = 1:length(Comparisons)
+for index = 130:length(Comparisons)
     
     if rem(index,1000) == 0
         el = toc;
@@ -199,7 +199,7 @@ for index = 1:length(Comparisons)
 
                     end
                 end
-                
+                               
                 % Get full chunk cost with penalty
                 penaltyIdx1 = (rem(head:tail-1,10) == 0)';                             % each 10th step
                 penaltyIdx2 = ~ismembc(Path_test(curChunk(1:end-1)),PrimeSet);         % non prime
@@ -227,9 +227,9 @@ for index = 1:length(Comparisons)
                 end
             else
                 if minIdx == 1
-                    Path_test(head:tail) = Path_test([head,cell2mat(allPerms1(1,:)),tail]);
+                    Path_test(head:tail) = Path_test([head,cell2mat(allPerms1),tail]);
                 else
-                    Path_test(head:tail) = Path_test([head,cell2mat(allPerms2(1,:)),tail]);
+                    Path_test(head:tail) = Path_test([head,cell2mat(allPerms2),tail]);
                 end
             end
             
