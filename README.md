@@ -20,7 +20,7 @@ I used the [Lin-Kernighan-Helsgaun](http://akira.ruc.dk/~keld/research/LKH-3/) o
 6. Used a few initializations to avoid local minima caused by using the same seed for number generation and kept increasing the number of kicks for each initialization.
 7. Multiplied the cities coordinates by 1e3 in order to get a higher precision in the distance calculation.
 
-With this process I ended up with a pure distance solution that was 500 points better than the pure LKH solution shared in the kernels.
+With this process I ended up with a pure distance solution that was 500 points better than the pure LKH solution shared in the public [kernel](https://www.kaggle.com/jsaguiar/lkh-solver).
 
 
 ## Step 2 - Penalty optimization ##
