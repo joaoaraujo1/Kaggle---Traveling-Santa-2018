@@ -1,4 +1,4 @@
-# Traveling Santa 2018 - Prime Paths (Kaggle Competition)#
+# Traveling Santa 2018 - Prime Paths (Kaggle Competition) #
 This is the code I have created for the Traveling Santa 2018, my first Kaggle competition where I ranked 210/1874 (top 12%). This was a highly participated competition that featured top researchers like Bill Cook and Keld Helsgaun (who ended up winning the competition). The problem was very similar to a TSP with 197769 cities. In the figure below, the red node represents the first/last node.
 
 ![matlabmaptsp](https://user-images.githubusercontent.com/40466329/51650481-51ca5400-1f80-11e9-9c9f-fe4563d3aef1.jpg)
