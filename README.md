@@ -63,7 +63,23 @@ The following Kernels represented, altogether, an improvement of about 60 points
 
 ### Simulated Annealing 3.5 ###
 ( File: SimAnnOptV2.m )
-By the end of the competition, I tried a different kind of approach to local search algorithms with Simulated Annealing. In my implementation, the user can decide the number of initializations, runs ("reheats"), temperature and cooling schedule. I have also added a customizable tabu list to be able to induce more or less exploration in the annealing process. To the regular SA algorithm, I added a customizable 3.5-opt that runs when the temperature reaches 0. I was not able to fully test/optimize this implementation due to the large number of parameters to fine-tune. Therefore this code was not very useful for the competition. It's quite cool though. To create the Neighbours structure mentioned in the SA 3.5 file, refer to CreateNeighbours.m.
+By the end of the competition, I tried a different kind of approach to local search algorithms with Simulated Annealing. In my implementation, the user can decide the number of initializations, runs ("reheats"), temperature and cooling schedule. I have also added a customizable tabu list to be able to induce more or less exploration in the annealing process. To optimize the SA's node swapping routine, I implemented a method inspired on [Kernighan-Lin's partition algorithm](https://en.wikipedia.org/wiki/Kernighan%E2%80%93Lin_algorithm):
+
+Let us have nodes 'a' and 'b'. We want to swap them and see if we get a better tour. So from:
+
+--- x1-a-x2--- .... ----y1-b-y2---- ....
+we get:
+--- x1-b-x2--- .... ----y1-a-y2---- ....
+
+* Let the cost of the edges (x1-a) and (a-x2) represent the internal cost of 'a' (Ia)
+* Let the cost of the edges (y1-b) and (b-y2) represent the internal cost of 'b' (Ib)
+* Let the cost of the possible edge (y1-a) and (a-y2) represent the external cost of 'a' (Ea)
+* Let the cost of the possible edge (x1-b) and (b-x2) represent the external cost of 'b' (Eb)
+* Let (Ia - Ea) be the gain of swapping 'a' (Ga)
+* Let (Ib - Eb) be the gain of swapping 'b' (Gb)
+* From this, we have that our new cost will be: initial cost - (Ga + Gb)
+
+Finally, to the regular SA algorithm, I added a customizable 3.5-opt that runs throughout the whole path when the temperature reaches 0. I was not able to fully test/optimize this implementation due to the large number of parameters to fine-tune. Therefore this code was not very useful for the competition. It's quite cool though. To create the Neighbours structure mentioned in the SA 3.5 file, refer to CreateNeighbours.m.
 
 ![sa 1](https://user-images.githubusercontent.com/40466329/51651797-39106d00-1f85-11e9-8d6a-be4fa6bf91af.gif)
 
