@@ -20,7 +20,7 @@ I used the [Lin-Kernighan-Helsgaun](http://akira.ruc.dk/~keld/research/LKH-3/) o
 6. Used a few initializations to avoid local minima caused by using the same seed for number generation and kept increasing the number of kicks for each initialization.
 7. Multiplied the cities coordinates by 1e3 in order to get a higher precision in the distance calculation.
 
-With this process I ended up with a pure distance solution that was 500 points better than the pure LKH solution shared in the public [kernel](https://www.kaggle.com/jsaguiar/lkh-solver).
+With this process I ended up with a pure distance solution that was 500 points better than the pure LKH solution shared in the public [kernel](https://www.kaggle.com/jsaguiar/lkh-solver). This Tour is saved in the Path_opt_LKH.mat file
 
 
 ## Step 2 - Penalty optimization ##
@@ -31,21 +31,24 @@ The real challenge was this second part. Now that we have a fairly good tour, th
 
 
 ### 2.5Opt ###
+( File: TwoHalfOptV7.m )
 This algorithm tries to find a gainful move by swapping 2 nodes. Moreover, it tries to reverse the path between the 2 nodes in order to find a gainful move. If the *maxPerms* variable is activated, the algorithm tests for moves across all the possible permutations between path and nodes like in the following example:
 
 Be n1 and n2 the nodes to swap and p1 the path between them:
 
 ---- n1 - p1 - n2 ----
 
-The 2.5-opt tests for all the 3! possible permutations of these 3 elements with b1 in normal and reversed order (total: 3 * 2^2 moves). File: TwoHalfOptV7.m
+The 2.5-opt tests for all the 3! possible permutations of these 3 elements with b1 in normal and reversed order (total: 3 * 2^2 moves).
 
 
 ### 4+Opt ###
-An extension of the previous algorithm with a few variables to control its computational cost. File: FourOptPlusV4.m
+( File: FourOptPlusV4.m )
+An extension of the previous algorithm with a few variables to control its computational cost. 
 
 
 ### Brute-force ###
-When all the other methods were completed I ran a brute-force algorithm with O(n!) complexity for the final improvements. This usually resulted in improvements of 10-20 points. File: BruteForceFactorial.m
+( File: BruteForceFactorial.m )
+When all the other methods were completed I ran a brute-force algorithm with O(n!) complexity for the final improvements. This usually resulted in improvements of 10-20 points.
 
 
 ## Kernel Optimizations ##
@@ -59,13 +62,17 @@ The following Kernels represented, altogether, an improvement of about 60 points
 ## Bonus ##
 
 ### Simulated Annealing 3.5 ###
-By the end of the competition, I tried a different kind of approach to local search algorithms with Simulated Annealing. In my implementation, the user can decide the number of initializations, runs ("reheats"), temperature and cooling schedule. I have also added a customizable tabu list to be able to induce more or less exploration in the annealing process. To the regular SA algorithm, I added a customizable 3.5-opt that runs when the temperature reaches 0. I was not able to fully test/optimize this implementation due to the large number of parameters to fine-tune. Therefore this code was not very useful for the competition. It's quite cool though. File: SimAnnOptV2.m
+( File: SimAnnOptV2.m )
+By the end of the competition, I tried a different kind of approach to local search algorithms with Simulated Annealing. In my implementation, the user can decide the number of initializations, runs ("reheats"), temperature and cooling schedule. I have also added a customizable tabu list to be able to induce more or less exploration in the annealing process. To the regular SA algorithm, I added a customizable 3.5-opt that runs when the temperature reaches 0. I was not able to fully test/optimize this implementation due to the large number of parameters to fine-tune. Therefore this code was not very useful for the competition. It's quite cool though. To create the Neighbours structure mentioned in the SA 3.5 file, refer to CreateNeighbours.m.
 
 ![sa 1](https://user-images.githubusercontent.com/40466329/51651797-39106d00-1f85-11e9-8d6a-be4fa6bf91af.gif)
 
+(Perturbation of an initial solution across different temperatures T)
+
 
 ### Path Visualization ###
-A script that allows a neat visualization of the map, tour and the penalty edges. File PathVisualization.m
+( File PathVisualization.m )
+A script that allows a neat visualization of the map, tour and the penalty edges.
 
 ![tourvisual](https://user-images.githubusercontent.com/40466329/51650540-850ce300-1f80-11e9-903f-83518f237a23.jpg)
 
